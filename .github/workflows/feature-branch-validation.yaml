@@ -1,0 +1,39 @@
+name: VALIDAÇÃO DE BRANCH FEATURE
+
+on:
+  workflow_call:
+
+jobs:
+  validacao-feature:
+    runs-on: self-hosted
+
+    steps:
+      - name: VERIFICANDO SE A BRANCH É feature/*
+        id: check_branch
+        run: |
+          BRANCH_NAME="${{ github.ref }}"
+          echo "BRANCH_NAME: $BRANCH_NAME"
+          if [[ "$BRANCH_NAME" != refs/heads/feature/* ]]; then
+            echo "BRANCH $BRANCH_NAME NÃO É BRANCH DE FEATURE. FINALIZANDO VALIDAÇÃO..."
+            echo "skip=true" >> $GITHUB_ENV
+          else
+            echo "skip=false" >> $GITHUB_ENV
+          fi
+
+      - name: Checkout repository
+        if: env.skip == 'false'
+        uses: actions/checkout@v4.1.7
+        with:
+          fetch-depth: 0
+
+      - name: VERIFICANDO SE A BRANCH FEATURE FOI CRIADA DA MAIN.
+        if: env.skip == 'false'
+        run: |
+          git fetch origin main
+          MAIN_COMMIT=$(git rev-parse origin/main)
+          if git merge-base --is-ancestor "$MAIN_COMMIT" HEAD; then
+            echo "A BRANCH FOI CRIADA CORRETAMENTE DA main"
+          else
+            echo "ERRO: AS BRANCHES feature/* DEVEM SER CRIADAS A PARTIR DA main"
+            exit 1
+          fi
