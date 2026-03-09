@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: VERIFICANDO SE A BRANCH É feature/*
         id: check_branch
+        shell: bash
         run: |
           BRANCH_NAME="${{ github.ref }}"
           echo "BRANCH_NAME: $BRANCH_NAME"
@@ -28,6 +29,7 @@ jobs:
 
       - name: VERIFICANDO SE A BRANCH FEATURE ESTÁ ATUALIZADA COM A MAIN.
         if: env.skip == 'false'
+        shell: bash
         run: |
           git fetch origin main
           MAIN_COMMIT=$(git rev-parse origin/main)
