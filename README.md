@@ -10,7 +10,7 @@ Este repositório serve como template para demonstrar um fluxo completo de **Int
 
 ---
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas:
 
 - **.NET 9.0** (ASP.NET Core Web API)
 - **Docker** (container Linux)
