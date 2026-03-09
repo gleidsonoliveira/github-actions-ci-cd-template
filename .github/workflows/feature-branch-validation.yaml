@@ -2,6 +2,12 @@ name: VALIDAÇÃO DE BRANCH FEATURE
 
 on:
   workflow_call:
+  push:
+    branches:
+      - 'feature/*'
+  pull_request:
+    branches:
+      - 'feature/*'
 
 jobs:
   validacao-feature:
