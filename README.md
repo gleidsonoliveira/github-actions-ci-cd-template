@@ -19,7 +19,7 @@ Este repositório serve como template para demonstrar um fluxo completo de **Int
 
 ---
 
-## Estrutura do Projeto
+## Estrutura do Projeto:
 
 ```
 ├── .github/
