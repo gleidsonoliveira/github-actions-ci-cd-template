@@ -124,7 +124,7 @@ A API estará disponível em `http://localhost:8080`.
 ### Testar o endpoint
 
 ```bash
-curl http://localhost:5047/weatherforecast
+curl http://localhost:5047/weatherforecast.
 ```
 
 ---
