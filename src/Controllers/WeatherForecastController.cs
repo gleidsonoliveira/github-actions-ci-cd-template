@@ -24,8 +24,8 @@ namespace WebApplication.Controllers
             var i =1;
             if(i == 1)
             {
-               
-                
+
+             
             }
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
