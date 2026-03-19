@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication.Controllers
+namespace CadastroClientes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
