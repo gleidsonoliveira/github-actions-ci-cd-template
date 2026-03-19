@@ -1,4 +1,4 @@
-namespace WebApplication
+namespace CadastroClientes
 {
     public class WeatherForecast
     {
