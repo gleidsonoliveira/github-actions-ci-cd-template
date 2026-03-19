@@ -2,6 +2,12 @@ name: VALIDAÇÃO DE BRANCH FEATURE
 
 on:
   workflow_call:
+  push:
+    branches:
+      - 'feature/*'
+  pull_request:
+    branches:
+      - 'feature/*'
 
 jobs:
   validacao-feature:
@@ -10,6 +16,7 @@ jobs:
     steps:
       - name: VERIFICANDO SE A BRANCH É feature/*
         id: check_branch
+        shell: bash
         run: |
           BRANCH_NAME="${{ github.ref }}"
           echo "BRANCH_NAME: $BRANCH_NAME"
@@ -26,14 +33,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: VERIFICANDO SE A BRANCH FEATURE FOI CRIADA DA MAIN.
+      - name: VERIFICANDO SE A BRANCH FEATURE ESTÁ ATUALIZADA COM A MAIN.
         if: env.skip == 'false'
+        shell: bash
         run: |
           git fetch origin main
           MAIN_COMMIT=$(git rev-parse origin/main)
           if git merge-base --is-ancestor "$MAIN_COMMIT" HEAD; then
-            echo "A BRANCH FOI CRIADA CORRETAMENTE DA main"
+            echo "A BRANCH ESTÁ ATUALIZADA COM A main"
           else
-            echo "ERRO: AS BRANCHES feature/* DEVEM SER CRIADAS A PARTIR DA main"
+            echo "ERRO: AS BRANCHES feature/* DEVEM ESTAR ATUALIZADAS COM A main"
             exit 1
           fi
